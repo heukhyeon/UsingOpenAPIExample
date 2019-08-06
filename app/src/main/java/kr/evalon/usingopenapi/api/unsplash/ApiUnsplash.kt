@@ -9,11 +9,12 @@ import retrofit2.adapter.rxjava2.Result
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ApiUnsplash {
 
     @GET("/photos")
-    fun loadPhoto():Single<Response<List<ModelUnsplashPhoto>>>
+    fun loadPhoto(@Query("page") page:Long = 1):Single<Response<List<ModelUnsplashPhoto>>>
 
     companion object {
 

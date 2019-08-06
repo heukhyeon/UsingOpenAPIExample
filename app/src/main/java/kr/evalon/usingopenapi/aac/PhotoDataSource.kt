@@ -1,5 +1,6 @@
 package kr.evalon.usingopenapi.aac
 
+import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -17,7 +18,7 @@ class PhotoDataSource : PageKeyedDataSource<Long, PhotoViewModel>(), Closeable {
 
         ApiService.unSplash().loadPhoto()
             .subscribe({
-                callback.onResult(it.body()!!.map(::PhotoViewModel),0,it.headers()["X-Total"]!!.toInt(),null,null)
+                callback.onResult(it.body()!!.map(::PhotoViewModel),0,it.headers()["X-Total"]!!.toInt(),1,2)
             },{
 
             })
@@ -31,7 +32,7 @@ class PhotoDataSource : PageKeyedDataSource<Long, PhotoViewModel>(), Closeable {
 
     override fun loadAfter(params: PageKeyedDataSource.LoadParams<Long>, callback: PageKeyedDataSource.LoadCallback<Long, PhotoViewModel>) {
 
-        ApiService.unSplash().loadPhoto()
+        ApiService.unSplash().loadPhoto(params.key)
             .subscribe({
                 callback.onResult(it.body()!!.map(::PhotoViewModel),params.key + 1)
             },{

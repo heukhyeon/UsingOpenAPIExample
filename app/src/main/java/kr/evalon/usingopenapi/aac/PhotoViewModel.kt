@@ -8,7 +8,7 @@ import kr.evalon.usingopenapi.api.unsplash.ModelUnsplashPhoto
 
 class PhotoViewModel(private val model : ModelUnsplashPhoto) {
 
-    val photoUrl:String = model.urls.regular
+    val photoUrl:String = model.urls.thumb
     val userPhotoUrl:String = model.user.profile_image.medium
     val userName = model.user.name
 

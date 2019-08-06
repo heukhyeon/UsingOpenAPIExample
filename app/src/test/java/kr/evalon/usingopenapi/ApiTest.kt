@@ -7,6 +7,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.shadows.ShadowLog
+import retrofit2.Response
+import retrofit2.adapter.rxjava2.Result
 
 @RunWith(RobolectricTestRunner::class)
 class ApiTest {
@@ -15,15 +17,21 @@ class ApiTest {
     fun loadPhoto(){
         ShadowLog.stream = System.out
 
-        val testObserver = TestObserver<List<ModelUnsplashPhoto>>()
+        val testObserver = TestObserver<Response<List<ModelUnsplashPhoto>>>()
         ApiService.unSplash()
             .loadPhoto()
             .subscribe(testObserver)
 
         testObserver.await()
         testObserver.assertComplete()
-        testObserver.values().first().toJson().apply {
+        val response = testObserver.values().first()
+        println("Response Accept")
+        response.headers().toJson().apply {
             println(this)
         }
+        response.body()?.toJson()?.apply {
+            println(this)
+        }
+
     }
 }

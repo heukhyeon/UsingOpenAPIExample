@@ -15,7 +15,7 @@ import androidx.lifecycle.LiveData
 
 class MainViewModel(app:Application) : AndroidViewModel(app) {
 
-    private val factory = PhotoFactory()
+    val factory = PhotoFactory()
     val pagedListLiveData: LiveData<PagedList<PhotoViewModel>> by lazy {
 
         val config = PagedList.Config.Builder()

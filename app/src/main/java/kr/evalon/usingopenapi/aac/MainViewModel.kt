@@ -21,7 +21,7 @@ class MainViewModel(app:Application) : AndroidViewModel(app) {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(true)
             .setInitialLoadSizeHint(10)
-            .setPageSize(20)
+            .setPageSize(10)
             .setPrefetchDistance(4)
             .build()
         LivePagedListBuilder<Long, PhotoViewModel>(factory, config)

@@ -13,8 +13,7 @@ class PhotoAdapter : PagedListAdapter<PhotoViewModel, BindHolder>(PhotoViewModel
     }
 
     override fun onBindViewHolder(holder: BindHolder, position: Int) {
-        holder.setViewModel(
-            requireNotNull(getItem(position))
-        )
+        val item = getItem(position) ?: return
+        holder.setViewModel(item)
     }
 }

@@ -28,5 +28,5 @@ class MainViewModel(app:Application) : AndroidViewModel(app) {
             .setFetchExecutor(Executors.newSingleThreadExecutor())
             .build()
     }
-
+    val listAdapter = PhotoAdapter()
 }

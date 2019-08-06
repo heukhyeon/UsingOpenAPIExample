@@ -1,7 +1,6 @@
-package kr.evalon.usingopenapi
+package kr.evalon.usingopenapi.api
 
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
+import kr.evalon.usingopenapi.api.unsplash.ApiUnsplash
 
 object ApiService {
 

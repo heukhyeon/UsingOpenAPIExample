@@ -1,7 +1,6 @@
-package kr.evalon.usingopenapi
+package kr.evalon.usingopenapi.api.unsplash
 
 import io.reactivex.Single
-import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,11 +11,11 @@ import retrofit2.http.GET
 interface ApiUnsplash {
 
     @GET("/photos")
-    fun loadPhoto():Single<Any>
+    fun loadPhoto():Single<List<ModelUnsplashPhoto>>
 
     companion object {
 
-        fun create():ApiUnsplash{
+        fun create(): ApiUnsplash {
             return Retrofit.Builder()
                 .baseUrl("https://api.unsplash.com/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

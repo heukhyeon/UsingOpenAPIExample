@@ -8,16 +8,16 @@ import kr.evalon.usingopenapi.api.unsplash.ModelUnsplashPhoto
 import java.io.Closeable
 
 
-class PhotoDataSource : PageKeyedDataSource<Long, ModelUnsplashPhoto>(), Closeable {
+class PhotoDataSource : PageKeyedDataSource<Long, PhotoViewModel>(), Closeable {
 
     private val networkDisposable = CompositeDisposable()
 
     override fun loadInitial(params: PageKeyedDataSource.LoadInitialParams<Long>,
-                             callback: PageKeyedDataSource.LoadInitialCallback<Long, ModelUnsplashPhoto>) {
+                             callback: PageKeyedDataSource.LoadInitialCallback<Long, PhotoViewModel>) {
 
         ApiService.unSplash().loadPhoto()
             .subscribe({
-                callback.onResult(it.body()!!,0,it.headers()["X-Total"]!!.toInt(),null,null)
+                callback.onResult(it.body()!!.map(::PhotoViewModel),0,it.headers()["X-Total"]!!.toInt(),null,null)
             },{
 
             })
@@ -25,15 +25,15 @@ class PhotoDataSource : PageKeyedDataSource<Long, ModelUnsplashPhoto>(), Closeab
 
     }
 
-    override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Long, ModelUnsplashPhoto>) {
+    override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Long, PhotoViewModel>) {
 
     }
 
-    override fun loadAfter(params: PageKeyedDataSource.LoadParams<Long>, callback: PageKeyedDataSource.LoadCallback<Long, ModelUnsplashPhoto>) {
+    override fun loadAfter(params: PageKeyedDataSource.LoadParams<Long>, callback: PageKeyedDataSource.LoadCallback<Long, PhotoViewModel>) {
 
         ApiService.unSplash().loadPhoto()
             .subscribe({
-                callback.onResult(it.body()!!,params.key + 1)
+                callback.onResult(it.body()!!.map(::PhotoViewModel),params.key + 1)
             },{
 
             })

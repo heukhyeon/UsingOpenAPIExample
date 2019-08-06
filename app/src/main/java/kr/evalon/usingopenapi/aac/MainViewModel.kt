@@ -1,4 +1,4 @@
-package kr.evalon.usingopenapi
+package kr.evalon.usingopenapi.aac
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -16,17 +16,17 @@ import androidx.lifecycle.LiveData
 class MainViewModel(app:Application) : AndroidViewModel(app) {
 
     private val factory = PhotoFactory()
-    private val pagedListLiveData: LiveData<PagedList<Photos>>? = null
+    val pagedListLiveData: LiveData<PagedList<PhotoViewModel>> by lazy {
 
-    init {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(true)
             .setInitialLoadSizeHint(10)
             .setPageSize(20)
             .setPrefetchDistance(4)
             .build()
-        LivePagedListBuilder<Long, ModelUnsplashPhoto>(factory, config)
+        LivePagedListBuilder<Long, PhotoViewModel>(factory, config)
             .setFetchExecutor(Executors.newSingleThreadExecutor())
             .build()
     }
+
 }
